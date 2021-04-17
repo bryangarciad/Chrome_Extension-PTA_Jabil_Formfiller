@@ -4,10 +4,22 @@
         table, th, td {
           border: 1px solid black;
           font-size: small;
+          width: auto;
+        }
+        tr {
+            width: auto;
         }
         tr:hover {
             background-color: aqua;
             cursor: pointer;
+        }
+
+        .red{
+            background-color: red;
+        }
+
+        .white{
+            background-color: white;
         }
     </style>
     
@@ -19,7 +31,7 @@
         <hr>
         <table>
             <thead>
-                <tr>
+                <tr style="background-color: chartreuse;">
                     <th>PTA ID</th>
                     <th>PESO BRUTO</th>
                     <th>IMP GUIA</th>
