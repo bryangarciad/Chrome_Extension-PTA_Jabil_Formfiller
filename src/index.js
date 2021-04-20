@@ -23,18 +23,21 @@ const rowClicked = async (i) => {
             cleanObject[k] = k !== 'sent' ? cleanObject[k].replaceAll(doubleTagRegex, '') : cleanObject[k];
         })
 
-        const response = await axios.get(`http://mxchim0web03/pta_chi/Importation/Importation.ASP?ID=${cleanObject.pta_id}`)
+        try{
+            const response = await axios.get(`http://mxchim0web03/pta_chi/Importation/Importation.ASP?ID=${cleanObject.pta_id}`)
 
-        chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
-            chrome.tabs.sendMessage(tabs[0].id, {csvData: cleanObject, axiosData: response}, function(response) {alert(response)});
-        });
-
-        PtaObjectArr[i].sent = true;
-        //update local html table and storage with the new data
-        localStorage.setItem('ptaObjectData', JSON.stringify(PtaObjectArr))
-        ArrToHtmlTableBody(PtaObjectArr, false)
-        alert('going out')
-
+            chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+                chrome.tabs.sendMessage(tabs[0].id, {csvData: cleanObject, axiosData: response}, function(response) {alert(response)});
+            });
+    
+            PtaObjectArr[i].sent = true;
+            //update local html table and storage with the new data
+            localStorage.setItem('ptaObjectData', JSON.stringify(PtaObjectArr))
+            ArrToHtmlTableBody(PtaObjectArr, false)
+        }
+        catch(e){
+            alert('NETWORK ERROR')
+        }
     } else {
     } 
 }
