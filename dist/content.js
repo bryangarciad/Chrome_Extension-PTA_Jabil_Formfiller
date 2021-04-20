@@ -11,7 +11,18 @@ function replace(message, sender, sendresponse) {
     target.innerHTML = ''
     target.innerHTML = message.axiosData.data
     //fill the rest of the data with the message csv
+    const weight = document.getElementById('txtRealWeight')
+    const no_guia = document.getElementById('txtRealAirWayBill')
+    const invoice = document.getElementById('txtInvoice')
+    const date = document.getElementById('txtCustomEntryDate')
+    const Freight = document.getElementById('txtRealFreight')
 
+    weight.value = message.csvData.peso_bruto;
+    no_guia.value = message.csvData.no_guia;
+    invoice.value = message.csvData.no_factura
+    Freight.value = message.csvData.imp_guia
+    date.value = message.csvData.date
+    
     console.log(message);
     sendresponse('yeaaaaaaah boy')
 }
