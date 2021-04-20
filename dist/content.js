@@ -12,7 +12,7 @@ function replace(message, sender, sendresponse) {
     target.innerHTML = message.axiosData.data
     //fill the rest of the data with the message csv
     setTimeout(() => {
-        const weight = document.querySelector('[name="_middleframe2"]').contentDocument.getElementsByTagName('txtRealWeight')[0] 
+        const weight = document.querySelector('[name="_middleframe2"]').contentDocument.getElementById('txtRealWeight')
         // const no_guia = document.getElementById('txtRealAirWayBill')
         // const invoice = document.getElementById('txtInvoice')
         // const date = document.getElementById('txtCustomsEntryDate')
