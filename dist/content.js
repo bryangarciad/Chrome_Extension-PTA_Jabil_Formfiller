@@ -14,7 +14,7 @@ function replace(message, sender, sendresponse) {
     const weight = document.getElementById('txtRealWeight')
     const no_guia = document.getElementById('txtRealAirWayBill')
     const invoice = document.getElementById('txtInvoice')
-    const date = document.getElementById('txtCustomEntryDate')
+    const date = document.getElementById('txtCustomsEntryDate')
     const Freight = document.getElementById('txtRealFreight')
 
     weight.value = message.csvData.peso_bruto;
