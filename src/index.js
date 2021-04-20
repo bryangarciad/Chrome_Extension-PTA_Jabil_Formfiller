@@ -9,21 +9,30 @@ const fileInput = document.getElementById("PTA_CSV")
 // Global required vars
 let PtaObjectArr = [];
 const doubleTagRegex = /<td>|<\/td>/g;
+let axiosData = ''
 
 /******************** */
 // row click listiner
 /******************** */
 const rowClicked = (i) => {
     //axios request
+
+    
     //send message to background with the info; background worker will hanlde the target DOM
     if (confirm(`You're about to send PTA: ${PtaObjectArr[i].pta_id}`)) {
         let cleanObject = Object.assign({}, PtaObjectArr[i]);
         Object.keys(cleanObject).forEach( k => {
             cleanObject[k] = k !== 'sent' ? cleanObject[k].replaceAll(doubleTagRegex, '') : cleanObject[k];
         })
-        
+        axios.get(`http://mxchim0web03/pta_chi/Importation/Importation.ASP?ID=${cleanObject.pta_id}`)
+        .then( (res) => {
+            axiosData = res
+        })
+        .catch( (e) => {
+            axiosData = e
+        })
         chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
-            chrome.tabs.sendMessage(tabs[0].id, {csvData: cleanObject, axiosData: 'undefined'}, function(response) {alert(response)});  
+            chrome.tabs.sendMessage(tabs[0].id, {csvData: cleanObject, axiosData: axiosData}, function(response) {alert(response)});
         });
         PtaObjectArr[i].sent = true;
         //update local html table and storage with the new data
