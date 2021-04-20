@@ -7,7 +7,7 @@ function replace(message, sender, sendresponse) {
     //use axxios request to update DOM
     //use ptaData to fill the proper inputs
     //return response
-    const target = document.querySelector('[name="_middleframe2"]').contentDocument.getElementByTagName('html')[0]
+    const target = document.querySelector('[name="_middleframe2"]').contentDocument.getElementsByTagName('html')[0]
     target.innerHTML = ''
     target.innerHTML = message.axiosData.data
     //fill the rest of the data with the message csv
