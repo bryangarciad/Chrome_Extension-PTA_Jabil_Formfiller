@@ -13,22 +13,16 @@ function replace(message, sender, sendresponse) {
     //fill the rest of the data with the message csv
     setTimeout(() => {
         const weight = document.querySelector('[name="_middleframe2"]').contentDocument.getElementById('txtRealWeight')
-        // const no_guia = document.getElementById('txtRealAirWayBill')
-        // const invoice = document.getElementById('txtInvoice')
-        // const date = document.getElementById('txtCustomsEntryDate')
-        // const Freight = document.getElementById('txtRealFreight')
+        const no_guia = document.querySelector('[name="_middleframe2"]').contentDocument.getElementById('txtRealAirWayBill') 
+        const invoice = document.querySelector('[name="_middleframe2"]').contentDocument.getElementById('txtInvoice') 
+        const date = document.querySelector('[name="_middleframe2"]').contentDocument.getElementById('txtCustomsEntryDate') 
+        const Freight = document.querySelector('[name="_middleframe2"]').contentDocument.getElementById('txtRealFreight') 
     
-        // weight.value = message.csvData.peso_bruto;
-        // no_guia.value = message.csvData.no_guia;
-        // invoice.value = message.csvData.no_factura
-        // Freight.value = message.csvData.imp_guia
-        // date.value = message.csvData.date
-        weight.value = '666'
-        // no_guia.value =  'ok guia'
-        // invoice.value =  'ok invoice'
-        // Freight.value =  'ok imp guia'
-        // date.value = 'ok  date'
-
+        weight.value = message.csvData.peso_bruto;
+        no_guia.value = message.csvData.no_guia;
+        invoice.value = message.csvData.no_factura
+        Freight.value = message.csvData.imp_guia
+        date.value = message.csvData.date
         console.log(message);
         sendresponse('yeaaaaaaah boy')
     }, 1000)
