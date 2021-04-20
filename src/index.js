@@ -9,15 +9,11 @@ const fileInput = document.getElementById("PTA_CSV")
 // Global required vars
 let PtaObjectArr = [];
 const doubleTagRegex = /<td>|<\/td>/g;
-let axiosData = 'testText'
 
 /******************** */
 // row click listiner
 /******************** */
-const rowClicked = (i) => {
-    //axios request
-
-    
+const rowClicked = async (i) => {
     //send message to background with the info; background worker will hanlde the target DOM
     if (confirm(`You're about to send PTA: ${PtaObjectArr[i].pta_id}`)) {
 
@@ -27,29 +23,20 @@ const rowClicked = (i) => {
             cleanObject[k] = k !== 'sent' ? cleanObject[k].replaceAll(doubleTagRegex, '') : cleanObject[k];
         })
 
-        axios.get('http://mxchim0web03/pta_chi/Importation/Importation.ASP', {
-            params: {
-                ID: cleanObject.pta_id
-            }
-        })
-        .then( (res) => {
-            axiosData = res
-            chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
-                chrome.tabs.sendMessage(tabs[0].id, {csvData: cleanObject, axiosData: axiosData}, function(response) {alert(response)});
-            });
-            PtaObjectArr[i].sent = true;
-            //update local html table and storage with the new data
-            localStorage.setItem('ptaObjectData', JSON.stringify(PtaObjectArr))
-            ArrToHtmlTableBody(PtaObjectArr, false)
-        })
-        .catch( (e) => {
-            axiosData = e
-            chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
-                chrome.tabs.sendMessage(tabs[0].id, {csvData: cleanObject, axiosData: axiosData}, function(response) {alert(response)});
-            });
-        })
-      } else {
-      } 
+        const response = await axios.get(`http://mxchim0web03/pta_chi/Importation/Importation.ASP?ID=${cleanObject.pta_id}`)
+
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+            chrome.tabs.sendMessage(tabs[0].id, {csvData: cleanObject, axiosData: response}, function(response) {alert(response)});
+        });
+
+        PtaObjectArr[i].sent = true;
+        //update local html table and storage with the new data
+        localStorage.setItem('ptaObjectData', JSON.stringify(PtaObjectArr))
+        ArrToHtmlTableBody(PtaObjectArr, false)
+        alert('going out')
+
+    } else {
+    } 
 }
 
 /*********************************************** */
